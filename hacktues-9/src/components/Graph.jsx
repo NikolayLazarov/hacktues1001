@@ -17,13 +17,12 @@ class Graph extends React.Component
             x: data.map(item => item.date),
             y: data.map(item => item[title]),
             type: "bar", 
-            name: "nz"
           }];
 
         return ( 
             <Plot 
                 data = {traces}
-                layout={{width: 1000, height: 700, title: title}}
+                layout={{width: 400, height: 250, title: "Graph for " + title, xaxis: {title: "Date"}, yaxis: {title: title}, margin: { l: 50, r: 50, b: 50, t: 100 }}}
             />
         );
 

@@ -30,12 +30,13 @@ function Data() {
 
   return (
     <div className="Data">
-        <div className="pfp"/>
-        <div className="name">Josif Bezkosa</div>
-        <div className="personal-id">1234567</div>
-        <Graph title="temperature" data={data}/>
-        <Graph title="oxygen" data={data}/>
-        <Graph title="pulse" data={data}/>
+      <div className="square"></div>
+      <div className="pfp"/>
+      <div className="name">Josif Bezkosa</div>
+      <div className="personal-id">1234567</div>
+      <Graph className="graph-temperature" title="temperature" data={data}/>
+      <Graph className="graph-oxygen" title="oxygen" data={data}/>
+      <Graph className="graph-pulse" title="pulse" data={data}/>
     </div>
   )
 }
