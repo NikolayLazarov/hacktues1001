@@ -3,7 +3,7 @@
   width: 200px;
   height: 200px;
   margin-top: 50px;
-  background-image: url('./pfp.png');
+  background-image: "..assets\pfp.png";
   background-size: cover;
   border: 3px solid black;
 }

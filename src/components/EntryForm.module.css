@@ -1,0 +1,14 @@
+/* h1{
+    color: red;
+} */
+
+form{
+    display: flex;
+    flex-direction: column;
+    /* background-color: black; */
+
+}
+input{
+    margin : 1.5rem;
+    height: 2rem;
+}

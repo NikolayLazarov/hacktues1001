@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import './Data.css'
-import Graph from '../components/Graph.jsx'
+import Graph from '../components/Graph'
 
 function Data() {
   
@@ -30,7 +30,6 @@ function Data() {
 
   return (
     <div className="Data">
-      <div className="square"></div>
       <div className="pfp"/>
       <div className="name">Josif Bezkosa</div>
       <div className="personal-id">1234567</div>
