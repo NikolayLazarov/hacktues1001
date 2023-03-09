@@ -37,8 +37,8 @@ function EntryForm(){
         let tempSigner = tempProvider.getSigner();
         setSigner(tempSigner);
 
-        let tempContract = new ethers.Contract(contractAddress, ... , tempSigner);
-        setContract(tempContract);
+        // let tempContract = new ethers.Contract(contractAddress, ... , tempSigner);
+        // setContract(tempContract);
     }
 //     function JO(event){
 //         const data = { username: "example" };
