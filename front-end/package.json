@@ -9,9 +9,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
+<<<<<<< HEAD:front-end/package.json
     "ethers": "^6.1.0",
+=======
+    "plotly.js": "^2.18.2",
+>>>>>>> a4ea8bff0725347e2a31b91393d5b5b972d04d2d:hacktues-9/package.json
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-plotly.js": "^2.6.0"
   },
   "devDependencies": {
     "@types/react": "^18.0.27",
