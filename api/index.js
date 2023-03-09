@@ -4,11 +4,7 @@ const app = express()
 const port = 3000
 const hostname = '0.0.0.0';
 
-const pushData = async (req,res) => {
-    console.log(req.body);
-    
-    res.send({"ok":1});
-}
+const pushData = require("./controllers/pushData")
 
 app.use(express.json());
 
