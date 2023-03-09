@@ -30,7 +30,7 @@ function Data() {
 
   return (
     <div className="Data">
-      <div className="pfp"/>
+      <div className="pfp"> </div>
       <div className="name">Josif Bezkosa</div>
       <div className="personal-id">1234567</div>
       <Graph className="graph-temperature" title="temperature" data={data}/>
