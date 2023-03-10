@@ -7,14 +7,16 @@
 const hre = require("hardhat");
 
 async function main() {
-  const Storage = await hre.ethers.getContractFactory("Storage");
-  const storage = await Storage.deploy();
+  const MedicalStorage = await hre.ethers.getContractFactory("MedicalStorage");
+  const medicalStorage = await MedicalStorage.deploy();
 
-  await storage.deployed();
+  await medicalStorage.deployed();
 
-  console.log(
-    `{Storage:"${storage.address}}"`
-  );
+  console.log(`
+  {
+    "medicalStorage":"${medicalStorage.address}"
+  }
+  `);
 }
 
 // We recommend this pattern to be able to use async/await everywhere

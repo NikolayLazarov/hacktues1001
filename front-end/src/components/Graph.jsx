@@ -22,7 +22,18 @@ class Graph extends React.Component
         return ( 
             <Plot 
                 data = {traces}
-                layout={{width: 400, height: 250, title: "Graph for " + title, xaxis: {title: "Date"}, yaxis: {title: title}, margin: { l: 50, r: 50, b: 50, t: 100 }}}
+                layout={{
+                        width: 400, 
+                        height: 250, 
+                        title: "Graph for " + title, 
+                        xaxis: {title: "Date"}, 
+                        yaxis: {title: title}, 
+                        margin: { l: 50, r: 50, b: 50, t: 100 },
+                        displayModeBar: false,
+                        paper_bgcolor:'rgba(0,0,0,0)',
+                        plot_bgcolor:'rgba(0,0,0,0)'
+                    }}
+                    config={{ displayModeBar: false }}
             />
         );
 
