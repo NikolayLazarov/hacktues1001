@@ -3,7 +3,9 @@ import './Data.css'
 import Graph from '../components/Graph'
 
 function Data() {
-  
+  const [isDoctor, setIsDoctor] = useState(false)
+
+
   const data = [
     {
     "hash": "",
@@ -35,7 +37,7 @@ function Data() {
       <div className="personal-id">1234567</div>
       <Graph className="graph-temperature" title="temperature" data={data}/>
       <Graph className="graph-oxygen" title="oxygen" data={data}/>
-      <Graph className="graph-pulse" title="pulse" data={data}/>
+      <Graph className="graph-pulse" title="pulse" data={data}/> 
     </div>
   )
 }
