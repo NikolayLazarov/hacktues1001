@@ -3,8 +3,8 @@ import './Data.css'
 import Graph from '../components/Graph'
 import Field from '../components/Field'
 
-function Data() {
-  const [isDoctor, setIsDoctor] = useState(false)
+function Data(props) {
+  //const [isDoctor, setIsDoctor] = useState(false)
 
 
   const data = [
@@ -41,6 +41,7 @@ function Data() {
       <Graph className="graph" title="oxygen" data={data}/>
       <Graph className="graph" title="pulse" data={data}/>
       <Field />
+      <div>{props.hash}</div>
     </div>
   )
 }

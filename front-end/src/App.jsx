@@ -10,11 +10,14 @@ import EntryForm from "./components/EntryForm";
 // import contractAddress from "../../../contractDetails/address.json"
 import { ethers } from "ethers";
 
+
 function App() {
   const [errorMessage, setErrorMessage] = useState(null);
   const [defaultAccount, setDefaultAccount] = useState(null);
   const [connectionButtonText, setConnectionButtonText] =
     useState("Connect Wallet");
+
+    const [hash, setHash] = useState();
 
   const [currentContractVallue, setCurrentContractValue] = useState(null);
 
@@ -27,11 +30,11 @@ function App() {
   const router = createBrowserRouter([
     {
       path: "/Data",
-      element: <Data />,
+      element: <Data hash={hash}/>,
     },
     {
       path: "/",
-      element: <EntryForm signer={signer} />,
+      element: <EntryForm signer={signer} setHash={setHash} />,
     },
   ]);
 

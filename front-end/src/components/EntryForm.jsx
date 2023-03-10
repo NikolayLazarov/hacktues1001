@@ -1,12 +1,7 @@
 import styles from './EntryForm.module.css';
 import React, { useState,useRef } from 'react';
-// import {createHash} from "crypto";
-// import {sjcl} from 'sjcl'
 import sha256 from 'js-sha256';
-//import ethers from 'ethers';
-
-// D:\NikiL\School\2022-2023\HackTues1001\Project\hacktues1001\contractDetails\address.json
-// hacktues1001\contractDetails\address.json
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -22,7 +17,8 @@ function hexToArray(hexx) {
 }
 
 
-function EntryForm(){
+function EntryForm(props){
+    const navigate = useNavigate();
 
     const firstName = useRef();
     const lastName = useRef();
@@ -45,7 +41,10 @@ function EntryForm(){
         const finalEndingString = finalStringMaker(endingDateFormated);
         
         const hashStringStart = hashMaker(finalStartingString);
+
+        props.setHash(hashStringStart);
         console.log(hashStringStart);
+        navigate("/Data")
         //metaMaskConnector(hashStringStart);
         return hashStringStart;
     }
@@ -64,19 +63,14 @@ function EntryForm(){
     }
 
     function hashMaker(newString){
-        // const { createHash } = require('crypto');
-        // const myBitArray = sjcl.hash.sha256.hash(newString);
-        // const hash = sjcl.codec.hex.fromBits(myBitArray);
         const hash  = sha256(newString).toString();
 
         return hash;
     }
 
-
-    
     return <div >
         
-        <form onSubmit={entryFormHandler} > 
+        <form onSubmit={(event)=> {entryFormHandler(event);} } > 
                 <h1>Entry Data</h1>
                 <input type = "text" placeholder='First name' ref={firstName} required/>
                 <input type = "text" placeholder='Lastname' ref={lastName} required/>
@@ -88,13 +82,9 @@ function EntryForm(){
             <input type="date" ref={endingDate} required/>
 
             </div>
-
-
-            <button>Submit </button>
+            <button>Submit</button>
 
             </form>
-
-        
         </div>
     ;
 }
