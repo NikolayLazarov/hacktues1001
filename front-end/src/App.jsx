@@ -5,9 +5,6 @@ import "./App.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Data from "./layout/Data";
 import EntryForm from "./components/EntryForm";
-
-// import contractABI from '../../../contractDetails/MedicalStorage.json'
-// import contractAddress from "../../../contractDetails/address.json"
 import { ethers } from "ethers";
 
 
