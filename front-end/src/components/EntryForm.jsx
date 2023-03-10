@@ -112,7 +112,7 @@ async function getCurrentVal(){
                 <input type = "text" placeholder='First name' ref={firstName} required/>
                 <input type = "text" placeholder='Lastname' ref={lastName} required/>
             <input style={styles.input}  type = "text" placeholder ='Pesronal ID' ref={personalId} required/>
-            <input type = "password" placeholder='password' ref={password} required/>
+            <input type = "password" placeholder='Password' ref={password} required/>
             <div>
             <input type="date" ref={startingDate} required/>
 

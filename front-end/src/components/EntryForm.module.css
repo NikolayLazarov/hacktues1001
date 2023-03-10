@@ -1,7 +1,9 @@
 
-/* h1{
-    color: red;
-} */
+h1
+{
+    color: #484848;
+    font-size: 2.5em;
+} 
 
 form{
     display: flex;
@@ -9,7 +11,35 @@ form{
     /* background-color: black; */
 
 }
+
 input{
     margin : 1.5rem;
     height: 2rem;
+    padding: 0.6em 1.2em;
+    border-radius: 8px;
+    border: 1px solid darkgray;
+}
+other 
+{
+    border-radius: 8px;
+    border: 1px solid transparent;
+    padding: 0.6em 1.2em;
+    font-size: 1em;
+    font-weight: 500;
+    width: 300px;
+    font-family: inherit;
+    background-color: #FBFBFB;
+    cursor: pointer;
+    transition: border-color 0.25s;
+}
+
+form 
+{
+    border-radius: 8px;
+    border: 1px solid transparent;
+    padding: 0.6em 1.2em;
+    background-color: #F5F2F2;
+    cursor: pointer;
+    transition: border-color 0.25s;
+    border-color: darkgray;
 }
