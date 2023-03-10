@@ -2,7 +2,10 @@ import styles from './EntryForm.module.css';
 import React, { useState,useRef } from 'react';
 import contractABI from '../../../contractDetails/MedicalStorage.json'
 import ContractAddress from "../../../contractDetails/address.json"
-import {ethers} from 'ethers' 
+import {ethers} from 'ethers'
+// import {createHash} from "crypto";
+// import {sjcl} from 'sjcl'
+import sha256 from 'js-sha256';
 
 // D:\NikiL\School\2022-2023\HackTues1001\Project\hacktues1001\contractDetails\address.json
 // hacktues1001\contractDetails\address.json
@@ -78,8 +81,8 @@ async function getCurrentVal(){
         const finalStartingString = finalStringMaker(startingDateFormated);
         const finalEndingString = finalStringMaker(endingDateFormated);
         
-        // const hashStringStart = hashMaker(finalStartingString);
-        // console.log(hashStringStart);
+        const hashStringStart = hashMaker(finalStartingString);
+        console.log(hashStringStart);
     }
 
     function dateFormater(date){
@@ -95,14 +98,14 @@ async function getCurrentVal(){
         return finalString;
     }
 
-    // function hashMaker(newString){
-    //     const { createHash } = require('crypto');
+    function hashMaker(newString){
+        // const { createHash } = require('crypto');
+        // const myBitArray = sjcl.hash.sha256.hash(newString);
+        // const hash = sjcl.codec.hex.fromBits(myBitArray);
+        const hash  = sha256(newString).toString();
 
-    //     const hash = () => {
-    //     return createHash('sha256').update(newString).digest('hex');
-    //     }
-    //     return hash;
-    // }
+        return hash;
+    }
 
     return (
         // <form /*style={styles.form} *//* onSubmit={JO}*/ >
