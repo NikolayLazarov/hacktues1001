@@ -225,7 +225,7 @@ void sendData()
       Serial.println("Failure at HTTP Request.");
     }
   }
-  delay(10000000000000);
+  delay(100000000);
 }
 
 
@@ -261,7 +261,7 @@ void setup()
 {
   Serial.begin(115200);
   Serial.println("Initializing button...");
-  pinMode(BUTTON_PIN, INPUT_PULLUP);
+  //pinMode(BUTTON_PIN, INPUT_PULLUP);
   Serial.println("Initializing DHT...");  
   dht.begin();
   connectToWifi();
@@ -283,39 +283,35 @@ void setup()
 
 void loop()
 {
-    currentState = digitalRead(BUTTON_PIN);
+    //currentState = digitalRead(BUTTON_PIN);
     
-    if (lastState == HIGH && currentState == LOW && countButton == 0)
-    {
+    //if (lastState == HIGH && currentState == LOW && countButton == 0)
+    //{
       Serial.println("Button clicked!");
       Serial.println("Temperature...");
       temp_data = temperature();
-      countButton++;
-    }
-    else if (lastState == HIGH && currentState == LOW && countButton == 1)
-    {
+      //countButton++;
+    //}
+    //else if (lastState == HIGH && currentState == LOW && countButton == 1)
+    //{
       Serial.println("Button clicked!");
       Serial.println("Pulse...");  
       pulse_data = pulse();  
-      countButton++;      
-    }
-    else if (lastState == HIGH && currentState == LOW && countButton == 2)
-    {
+      //countButton++;      
+    //}
+    //else if (lastState == HIGH && currentState == LOW && countButton == 2)
+    //{
       Serial.println("Button clicked!");
       Serial.println("Oxygen...");
       oxygen_data = oxygen();      
-      countButton++;
-    }
-    else if (lastState == LOW && currentState == HIGH)
+    //  countButton++;
+    //}
+    //else if (lastState == LOW && currentState == HIGH)
       Serial.println("The button is released");
-    if(countButton == 3)
-    {
+    //if(countButton == 3)
+    //{
       sendData();
       return;
-    }
-    lastState = currentState;
+    //}
+    //lastState = currentState;
 }
-
-
-
-
