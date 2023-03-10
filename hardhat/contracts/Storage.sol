@@ -4,7 +4,7 @@ pragma solidity ^0.8.9;
 import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract Storage is Ownable{
-    event createdMeasurement(uint MId,bytes UId);
+    event createdMeasurement(bytes id,uint time);
     event addedMedic(address medic);
 
     constructor() Ownable() {}
@@ -15,19 +15,22 @@ contract Storage is Ownable{
     }
 
     struct Measurement{
-        bytes UId;
-        uint date;
+        bytes id;
         bytes data;
-        uint MId;
+        uint time;
     }
 
-    mapping(address=>bool) medics;
-    Measurement[] measurements;
+    mapping(address=>bool) public medics;
+    mapping(bytes => Measurement) public measurements;
+    mapping(bytes => bool) public measurementExists;
 
-    function createMeasurement(bytes calldata _data, bytes calldata _UId, uint _MId) public onlyMedic {
-        Measurement memory m = Measurement(_UId, block.timestamp, _data, _MId);
-        measurements.push(m);
-        emit createdMeasurement(_MId, _UId);
+    
+    function createMeasurement(bytes calldata _id, bytes calldata _data) public onlyMedic {
+        Measurement memory m = Measurement(_id, _data, block.timestamp);
+        measurements[_id]=m;
+        measurementExists[_id]=true;
+        
+        emit createdMeasurement(_id,block.timestamp);
     }
 
     function addMedic(address _medic) public onlyOwner{
