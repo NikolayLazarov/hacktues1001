@@ -27,7 +27,7 @@ function App() {
   const router = createBrowserRouter([
     {
       path: "/Data",
-      element: <Data hash={hash}/>,
+      element: <Data hash={hash} provider={provider} signer={signer}/>,
     },
     {
       path: "/",

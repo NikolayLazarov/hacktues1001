@@ -1,12 +1,18 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './Data.css'
 import Graph from '../components/Graph'
 import Field from '../components/Field'
+import { ethers } from "ethers";
+
+import contractABI from"../../../contractDetails/MedicalStorage.json";
+import ContractAddress from "../../../contractDetails/address.json";
+// import { provider, signer } from '../App'
 
 function Data(props) {
-  //const [isDoctor, setIsDoctor] = useState(false)
-
-
+  const [contract, setContract] = useState(null);
+  const [currentContractValue, setCurrentContractValue] = useState(null);
+  const contractAddress = ContractAddress.medicalStorage;
+  
   const data = [
     {
     "hash": "",
@@ -30,6 +36,29 @@ function Data(props) {
     "date": "2021-05-01"
     }
   ]
+  function hexToArray(hexx) {
+    var hex = hexx.toString().slice(2);
+    var arr = [];
+    for (var i = 0; i < hex.length; i += 2){
+        //console.log(hex.substr(i, 2))
+        arr.push(parseInt(hex.substr(i, 2), 16));
+        //console.log(arr);
+    }
+    return arr;
+}
+useEffect(()=>{
+      console.log(props.provider);
+      console.log(props.signer);
+      let tempContract = new ethers.Contract(contractAddress,contractABI.abi, props.provider);
+      setContract(tempContract);
+  },[]);
+
+
+async  function getHashes(){
+  let hash = hexToArray("0x"+props.hash);
+  let val = await contract.measurements("0x12345678901234567890");
+  setCurrentContractValue(val);
+}
 
   return (
     <div className="Data">
@@ -41,10 +70,12 @@ function Data(props) {
       <Graph className="graph" title="oxygen" data={data}/>
       <Graph className="graph" title="pulse" data={data}/>
       <Field />
+
+      <button onClick={getHashes}>Batton</button>
       <div>{props.hash}</div>
+      {currentContractValue}
     </div>
   )
 }
 
-export default Data
-
+export default Data;

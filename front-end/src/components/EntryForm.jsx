@@ -5,16 +5,6 @@ import { useNavigate } from "react-router-dom";
 
 
 
-function hexToArray(hexx) {
-    var hex = hexx.toString().slice(2);
-    var arr = [];
-    for (var i = 0; i < hex.length; i += 2){
-        //console.log(hex.substr(i, 2))
-        arr.push(parseInt(hex.substr(i, 2), 16));
-        //console.log(arr);
-    }
-    return arr;
-}
 
 
 function EntryForm(props){
@@ -45,7 +35,6 @@ function EntryForm(props){
         props.setHash(hashStringStart);
         console.log(hashStringStart);
         navigate("/Data")
-        //metaMaskConnector(hashStringStart);
         return hashStringStart;
     }
 
