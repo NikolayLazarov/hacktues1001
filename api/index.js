@@ -47,6 +47,7 @@ app.get('/date', (req, res) => {
         +date.getFullYear().toString()
     res.send(d)
 })
+
 app.post('/m', pushData)
 app.get('/test', makeTest)
 

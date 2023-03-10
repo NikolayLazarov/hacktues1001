@@ -1,8 +1,11 @@
 import styles from './EntryForm.module.css';
-import React, { useState } from 'react';
-import contractABI from '../../../contractDetails/Storage.json'
+import React, { useState,useRef } from 'react';
+import contractABI from '../../../contractDetails/MedicalStorage.json'
 import ContractAddress from "../../../contractDetails/address.json"
-import {ethers} from 'ethers' 
+import {ethers} from 'ethers'
+// import {createHash} from "crypto";
+// import {sjcl} from 'sjcl'
+import sha256 from 'js-sha256';
 
 // D:\NikiL\School\2022-2023\HackTues1001\Project\hacktues1001\contractDetails\address.json
 // hacktues1001\contractDetails\address.json
@@ -19,8 +22,15 @@ function EntryForm(){
     const [provider, setProvider] = useState(null);
     const [signer, setSigner] = useState(null);
     const [contract, setContract] = useState(null);
+
+    const firstName = useRef();
+    const lastName = useRef();
+    const personalId = useRef();
+    const password = useRef();
+    const startingDate = useRef();
+    const endingDate = useRef();
  
-    function entryFormHandler(event){
+    function metaMaskConnector(event){
         event.preventDefault();
         if(window.ethereum){
             window.ethereum.request({method: 'eth_requestAccounts'})
@@ -38,7 +48,7 @@ function EntryForm(){
     }
 
     function updateEthers(){
-        let tempProvider = new ethers.providers.WebProvider(window.ethereum);
+        let tempProvider = new ethers.providers.Web3Provider(window.ethereum);
         setProvider(tempProvider);
         
         let tempSigner = tempProvider.getSigner();
@@ -47,58 +57,77 @@ function EntryForm(){
         let tempContract = new ethers.Contract(contractAddress, contractABI.abi , tempSigner);
         setContract(tempContract);
     }
-//     function JO(event){
-//         const data = { username: "example" };
 
-//         event.preventDefault();
-//         fetch( 'http://10.1.186.33:3000/m', {
-//         method: "POST", // or 'PUT'
-//         headers: {
-//             "Content-Type": "application/json",
-//         },
-//         body: JSON.stringify(data),
-//         })
-//   .then((response) => response.json())
-//   .then((data) => {
-//     console.log("Success:", data);
-//   })
-//   .catch((error) => {
-//     console.error("Error:", error);
-//   });
-//     }
 async function getCurrentVal(){
     let val = await contract.get();
     setCurrentContractValue(val);
 }
 
-function setHandler(event){
-    event.preventDefault();
-    contract.set(event.target.setText.value);
-}
+// function setHandler(event){
+//     event.preventDefault();
+//     contract.set(event.target.setText.value);
+// }
+
+    function entryFormHandler(event){
+        event.preventDefault();
+      
+        const startingDateFormated = dateFormater(startingDate.current.value);
+        const endingDateFormated = dateFormater(endingDate.current.value);
+       
+        
+        console.log(startingDateFormated);
+        console.log(endingDateFormated);
+        
+        const finalStartingString = finalStringMaker(startingDateFormated);
+        const finalEndingString = finalStringMaker(endingDateFormated);
+        
+        const hashStringStart = hashMaker(finalStartingString);
+        console.log(hashStringStart);
+    }
+
+    function dateFormater(date){
+        const dateObject = new Date(date);
+        const day =dateObject.getDate();
+        const month =dateObject.getMonth ()+1;
+        const year = dateObject.getFullYear();   
+        return day + "\\" + month + "\\" + year; 
+    }
+
+    function finalStringMaker(formatedDate){
+        const finalString = firstName.current.value + lastName.current.value + personalId.current.value + password.current.value + formatedDate;
+        return finalString;
+    }
+
+    function hashMaker(newString){
+        // const { createHash } = require('crypto');
+        // const myBitArray = sjcl.hash.sha256.hash(newString);
+        // const hash = sjcl.codec.hex.fromBits(myBitArray);
+        const hash  = sha256(newString).toString();
+
+        return hash;
+    }
 
     return (
-        <form /*style={styles.form} */ onSubmit={entryFormHandler} /* onSubmit={JO}*/ >
+        // <form /*style={styles.form} *//* onSubmit={JO}*/ >
+        <div>
+            <form onSubmit={entryFormHandler} > 
+                <h1>Entry Data</h1>
+                <input type = "text" placeholder='First name' ref={firstName} required/>
+                <input type = "text" placeholder='Lastname' ref={lastName} required/>
+            <input style={styles.input}  type = "text" placeholder ='Pesronal ID' ref={personalId} required/>
+            <input type = "password" placeholder='Password' ref={password} required/>
+            <div>
+            <input type="date" ref={startingDate} required/>
 
-            {/* <h1>Entry data</h1>
-        <input type = "text" placeholder='First name' />
-        <input type = "text" placeholder='Lastname' />
-        <input style={styles.input}  type = "text" placeholder ='Pesronal ID'/>
-        <input type = "password" placeholder='password' /> */}
+            <input type="date" ref={endingDate} required/>
 
-            <button >Enter and {connectionButtonText}</button>
-            <h3>Address: {defaultAccount}</h3>
+            </div>
 
-            <form   onSubmit={setHandler}>
-                <input id="setText" type='text' />
-                <button>Update Contract</button> 
+            <button>Submit </button>
+
             </form>
+        </div>
 
-
-            <button onClick={getCurrentVal} >Get current Value </button>
-            {currentContractVallue}
-            {errorMessage}
-            
-      </form>   
     );
 }
 
@@ -106,3 +135,4 @@ export default EntryForm;
 
 
 
+ 

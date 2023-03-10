@@ -20,7 +20,7 @@ class Graph extends React.Component
           }];
 
         return ( 
-            <Plot 
+            <Plot
                 data = {traces}
                 layout={{
                         width: 400, 
