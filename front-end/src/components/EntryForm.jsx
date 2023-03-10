@@ -1,27 +1,28 @@
 import styles from './EntryForm.module.css';
 import React, { useState,useRef } from 'react';
-import contractABI from '../../../contractDetails/MedicalStorage.json'
-import ContractAddress from "../../../contractDetails/address.json"
-import {ethers} from 'ethers'
 // import {createHash} from "crypto";
 // import {sjcl} from 'sjcl'
 import sha256 from 'js-sha256';
+//import ethers from 'ethers';
 
 // D:\NikiL\School\2022-2023\HackTues1001\Project\hacktues1001\contractDetails\address.json
 // hacktues1001\contractDetails\address.json
+
+
+
+function hexToArray(hexx) {
+    var hex = hexx.toString().slice(2);
+    var arr = [];
+    for (var i = 0; i < hex.length; i += 2){
+        //console.log(hex.substr(i, 2))
+        arr.push(parseInt(hex.substr(i, 2), 16));
+        //console.log(arr);
+    }
+    return arr;
+}
+
+
 function EntryForm(){
-
-    const contractAddress = ContractAddress.Storage;
-    
-    const [errorMessage, setErrorMessage] = useState(null);
-    const [defaultAccount, setDefaultAccount] = useState(null);
-    const [connectionButtonText, setConnectionButtonText] = useState('Connect Wallet');
-    
-    const [currentContractVallue,setCurrentContractValue] = useState(null);
-
-    const [provider, setProvider] = useState(null);
-    const [signer, setSigner] = useState(null);
-    const [contract, setContract] = useState(null);
 
     const firstName = useRef();
     const lastName = useRef();
@@ -29,44 +30,6 @@ function EntryForm(){
     const password = useRef();
     const startingDate = useRef();
     const endingDate = useRef();
- 
-    function metaMaskConnector(event){
-        event.preventDefault();
-        if(window.ethereum){
-            window.ethereum.request({method: 'eth_requestAccounts'})
-            .then(result => {
-                accountChangedHandler(result[0]);
-                setConnectionButtonText('WalletConnected');
-            });
-        }else{
-            setErrorMessage('Need to install MetaMask!'); 
-        }
-    }
-    function accountChangedHandler(newAccount){
-        	setDefaultAccount(newAccount);
-            updateEthers();
-    }
-
-    function updateEthers(){
-        let tempProvider = new ethers.providers.Web3Provider(window.ethereum);
-        setProvider(tempProvider);
-        
-        let tempSigner = tempProvider.getSigner();
-        setSigner(tempSigner);
-
-        let tempContract = new ethers.Contract(contractAddress, contractABI.abi , tempSigner);
-        setContract(tempContract);
-    }
-
-async function getCurrentVal(){
-    let val = await contract.get();
-    setCurrentContractValue(val);
-}
-
-// function setHandler(event){
-//     event.preventDefault();
-//     contract.set(event.target.setText.value);
-// }
 
     function entryFormHandler(event){
         event.preventDefault();
@@ -83,6 +46,8 @@ async function getCurrentVal(){
         
         const hashStringStart = hashMaker(finalStartingString);
         console.log(hashStringStart);
+        //metaMaskConnector(hashStringStart);
+        return hashStringStart;
     }
 
     function dateFormater(date){
@@ -107,10 +72,11 @@ async function getCurrentVal(){
         return hash;
     }
 
-    return (
-        // <form /*style={styles.form} *//* onSubmit={JO}*/ >
-        <div>
-            <form onSubmit={entryFormHandler} > 
+
+    
+    return <div >
+        
+        <form onSubmit={entryFormHandler} > 
                 <h1>Entry Data</h1>
                 <input type = "text" placeholder='First name' ref={firstName} required/>
                 <input type = "text" placeholder='Lastname' ref={lastName} required/>
@@ -123,14 +89,15 @@ async function getCurrentVal(){
 
             </div>
 
+
             <button>Submit </button>
 
             </form>
+
+        
         </div>
-
-    );
+    ;
 }
-
 export default EntryForm;
 
 
