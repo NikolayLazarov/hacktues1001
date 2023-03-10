@@ -3,7 +3,7 @@ pragma solidity ^0.8.9;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract Storage is Ownable{
+contract MedicalStorage is Ownable{
     event createdMeasurement(bytes id,uint time);
     event addedMedic(address medic);
 
@@ -25,7 +25,7 @@ contract Storage is Ownable{
     mapping(bytes => bool) public measurementExists;
 
     
-    function createMeasurement(bytes calldata _id, bytes calldata _data) public onlyMedic {
+    function addMeasurement(bytes calldata _id, bytes calldata _data) public onlyMedic {
         Measurement memory m = Measurement(_id, _data, block.timestamp);
         measurements[_id]=m;
         measurementExists[_id]=true;
