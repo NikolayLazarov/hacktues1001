@@ -33,14 +33,14 @@ function Data() {
 
   return (
     <div className="Data">
-      {/* <div className="pfp"> </div>
+      <div className="pfp"> </div>
       <div className="name">Josif Bezkosa</div>
       <div className="personal-id">1234567</div>
+      
       <Graph className="graph" title="temperature" data={data}/>
       <Graph className="graph" title="oxygen" data={data}/>
-      <Graph className="graph" title="pulse" data={data}/> */}
+      <Graph className="graph" title="pulse" data={data}/>
       <Field />
-
     </div>
   )
 }
