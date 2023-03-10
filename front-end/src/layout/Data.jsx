@@ -57,6 +57,7 @@ useEffect(()=>{
 async  function getHashes(){
   let hash = hexToArray("0x"+props.hash);
   let val = await contract.measurements("0x12345678901234567890");
+  console.log(hexToArray(val.data))
   setCurrentContractValue(val);
 }
 
@@ -73,7 +74,7 @@ async  function getHashes(){
 
       <button onClick={getHashes}>Batton</button>
       <div>{props.hash}</div>
-      {currentContractValue}
+      {/*currentContractValue*/}
     </div>
   )
 }
