@@ -35,17 +35,8 @@
   align-items: center;
 }
 
-.graph-temperature {
+.graph {
   margin: 10px;
   flex-basis: calc(33.33% - 20px);
 }
 
-.graph-oxygen {
-  margin: 10px;
-  flex-basis: calc(33.33% - 20px);
-}
-
-.graph-pulse {
-  margin: 10px;
-  flex-basis: calc(33.33% - 20px);
-}
