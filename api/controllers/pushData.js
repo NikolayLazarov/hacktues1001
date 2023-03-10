@@ -24,19 +24,18 @@ const medicalStorage = new ethers.Contract( address , abi , signer )
   
 
 module.exports = async function (req,res){
-    console.log(req.body.hash)
     let hash = hexToArray(req.body.hash);
     const temp = req.body.temperature;
     const o2 = req.body.oxygen;
     const pulse = req.body.pulse;
-
-    const medicAddress = await signer.getAddress();
+    const data = JSON.stringify({temp,o2,pulse,hash});
+    console.log(data)
     // try{
-    //     await medicalStorage.addMeasurement(hash,hash);
+    //     await medicalStorage.addMeasurement(hash,data);
     // }catch(e){
     //     console.log(e)
     // }
-
+    console.log(req.body)
     console.log("uploaded")
 
     res.send({"ok":1});
