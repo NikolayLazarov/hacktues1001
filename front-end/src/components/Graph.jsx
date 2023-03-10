@@ -29,7 +29,9 @@ class Graph extends React.Component
                         xaxis: {title: "Date"}, 
                         yaxis: {title: title}, 
                         margin: { l: 50, r: 50, b: 50, t: 100 },
-                        displayModeBar: false
+                        displayModeBar: false,
+                        paper_bgcolor:'rgba(0,0,0,0)',
+                        plot_bgcolor:'rgba(0,0,0,0)'
                     }}
                     config={{ displayModeBar: false }}
             />
