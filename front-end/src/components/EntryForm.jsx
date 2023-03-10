@@ -1,6 +1,6 @@
 import styles from './EntryForm.module.css';
 import React, { useState,useRef } from 'react';
-import contractABI from '../../../contractDetails/Storage.json'
+import contractABI from '../../../contractDetails/MedicalStorage.json'
 import ContractAddress from "../../../contractDetails/address.json"
 import {ethers} from 'ethers' 
 
