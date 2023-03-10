@@ -4,8 +4,10 @@ const app = express()
 const port = 3000
 const hostname = '0.0.0.0';
 
-const pushData = require("./controllers/pushData")
-
+const pushData = async (req,res) => {
+    console.log(req.body);
+    res.send({"ok":1});
+}
 app.use(express.json());
 
 app.use((req,res,next)=>{
@@ -28,7 +30,6 @@ app.get('/date', (req, res) => {
         +date.getFullYear().toString()
     res.send({'date':d})
 })
-
 app.post('/m', pushData)
 
 app.listen(port, hostname, () => {
