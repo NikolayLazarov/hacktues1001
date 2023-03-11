@@ -35,8 +35,8 @@ int countButton = 0;
 //Wifi Libraries and constants
 
 #include "WiFi.h"
-#define WIFI_NETWORK "MON"
-#define WIFI_PASSWORD "kukumqfka"
+#define WIFI_NETWORK "InnovationForumGuests"
+#define WIFI_PASSWORD ""
 #define TIMEOUT 2000
 char jsonOutput_private[256];
 
@@ -50,99 +50,9 @@ PulseOximeter pox;
 uint32_t tsLastReport = 0;
 
 
-/* 
-float max(float* data, unsigned int size)
-{
-  float max = data[0];
-  for(int i = 0;i<size;i++)
-    {
-      if(max < data[i])
-        max = data[i];
-    }
-    Serial.println(max);
-    return max;
-}
-*/
 
-float oxygen()
-{
-  delay(5000);
-  pox.update();
-  Serial.println(pox.getSpO2());
-  /*
-  int timer = millis();
-  float data[60];
-  int count = 0;'
-  int i =0;
-  while(count != 60)
-  {
-    pox.update();
-    if(millis() - tsLastReport > REPORTING_PERIOD_MS){
-    data[i] = pox.getSpO2();
-    Serial.print("Sp02: ");
-    Serial.print(data[i]);
-    Serial.println("%");
-    count++;
-    i++;
-    tsLastReport = millis();
-    }
-  }
-  
-   return max(data,count);
-   */
-}
 
-float pulse()
-{
-  pox.update();
-  Serial.println(pox.getHeartRate());
-  /*
-  delay(5000);
-  pox.update();
-  float pulse_data;
-  float data[60];
-  int count = 0;
-  int i = 0;
-  while(count != 60)
-  {
-    pox.update(); 
-    if(millis() - tsLastReport > REPORTING_PERIOD_MS){ 
-        data[i] = pox.getHeartRate();
-        Serial.print("Heart rate:");
-        Serial.println(data[i]);
-        count++;
-        i++;
-        tsLastReport = millis();
-    }
-  }
-  
-  return max(data,count);
-  */
-}
 
-float temperature()
-{
-  Serial.println(dht.readTemperature());
-  /*
-  delay(4000);
-  float temperature;
-  int timer = millis();
-  float data[60];
-  int count = 0;
-  int i = 0;
-  while(count != 60)
-  {
-        data[i] = dht.readTemperature();
-        Serial.print("TEMP:");
-        Serial.println(data[i]);
-        count++;
-        i++;
-        delay(1000);
-  }
-  
-  return max(data,count);
-  */
-}
 
 void sendData()
 {
@@ -250,7 +160,7 @@ void connectToWifi()
 {
   Serial.println("Connecting to Wifi...");
   WiFi.mode(WIFI_STA);
-  WiFi.begin(WIFI_NETWORK, WIFI_PASSWORD);
+  WiFi.begin(WIFI_NETWORK);
   unsigned long int attemptTime = millis();
   while (WiFi.status() != WL_CONNECTED && attemptTime - TIMEOUT > 0) {
     Serial.print('.');
@@ -272,7 +182,7 @@ void setup()
 {
   Serial.begin(115200);
   Serial.println("Initializing button...");
-  //pinMode(BUTTON_PIN, INPUT_PULLUP);
+  pinMode(BUTTON_PIN, INPUT_PULLUP);
   Serial.println("Initializing DHT...");  
   dht.begin();
   connectToWifi();
@@ -297,7 +207,7 @@ void setup()
 
 void loop()
 {
-<<<<<<< HEAD
+
   currentState = digitalRead(BUTTON_PIN);
   if(lastState == HIGH && currentState == LOW)
     {
@@ -385,37 +295,4 @@ void loop()
 
 
 
-=======
-    //currentState = digitalRead(BUTTON_PIN);
-    
-    //if (lastState == HIGH && currentState == LOW && countButton == 0)
-    //{
-      Serial.println("Button clicked!");
-      Serial.println("Temperature...");
-      temp_data = temperature();
-      //countButton++;
-    //}
-    //else if (lastState == HIGH && currentState == LOW && countButton == 1)
-    //{
-      Serial.println("Button clicked!");
-      Serial.println("Pulse...");  
-      pulse_data = pulse();  
-      //countButton++;      
-    //}
-    //else if (lastState == HIGH && currentState == LOW && countButton == 2)
-    //{
-      Serial.println("Button clicked!");
-      Serial.println("Oxygen...");
-      oxygen_data = oxygen();      
-    //  countButton++;
-    //}
-    //else if (lastState == LOW && currentState == HIGH)
-      Serial.println("The button is released");
-    //if(countButton == 3)
-    //{
-      sendData();
-      return;
-    //}
-    //lastState = currentState;
-}
->>>>>>> 6ca63c9663991374b4c14a2e1910ed89afd4628b
+
