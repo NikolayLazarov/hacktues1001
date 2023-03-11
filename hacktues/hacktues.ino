@@ -272,7 +272,7 @@ void setup()
 {
   Serial.begin(115200);
   Serial.println("Initializing button...");
-  pinMode(BUTTON_PIN, INPUT_PULLUP);
+  //pinMode(BUTTON_PIN, INPUT_PULLUP);
   Serial.println("Initializing DHT...");  
   dht.begin();
   connectToWifi();
@@ -297,6 +297,7 @@ void setup()
 
 void loop()
 {
+<<<<<<< HEAD
   currentState = digitalRead(BUTTON_PIN);
   if(lastState == HIGH && currentState == LOW)
     {
@@ -384,3 +385,37 @@ void loop()
 
 
 
+=======
+    //currentState = digitalRead(BUTTON_PIN);
+    
+    //if (lastState == HIGH && currentState == LOW && countButton == 0)
+    //{
+      Serial.println("Button clicked!");
+      Serial.println("Temperature...");
+      temp_data = temperature();
+      //countButton++;
+    //}
+    //else if (lastState == HIGH && currentState == LOW && countButton == 1)
+    //{
+      Serial.println("Button clicked!");
+      Serial.println("Pulse...");  
+      pulse_data = pulse();  
+      //countButton++;      
+    //}
+    //else if (lastState == HIGH && currentState == LOW && countButton == 2)
+    //{
+      Serial.println("Button clicked!");
+      Serial.println("Oxygen...");
+      oxygen_data = oxygen();      
+    //  countButton++;
+    //}
+    //else if (lastState == LOW && currentState == HIGH)
+      Serial.println("The button is released");
+    //if(countButton == 3)
+    //{
+      sendData();
+      return;
+    //}
+    //lastState = currentState;
+}
+>>>>>>> 6ca63c9663991374b4c14a2e1910ed89afd4628b
