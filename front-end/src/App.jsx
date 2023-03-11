@@ -5,6 +5,8 @@ import "./App.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Data from "./layout/Data";
 import EntryForm from "./components/EntryForm";
+import UploadMeasurement from "./components/UploadMeasurement";
+
 import { ethers } from "ethers";
 
 
@@ -32,6 +34,10 @@ function App() {
     {
       path: "/",
       element: <EntryForm signer={signer} setHashes={setHash} />,
+    },
+    {
+      path: "/upload",
+      element: <UploadMeasurement signer={signer} setHashes={setHash} />,
     },
   ]);
 

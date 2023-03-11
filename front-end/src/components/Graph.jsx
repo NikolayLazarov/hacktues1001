@@ -1,30 +1,37 @@
-import React from 'react';
+import React, { useState,useEffect } from 'react';
 import Plot from 'react-plotly.js';
 
 function Graph(props)
 {
     const { title, data } = props;
-    
+    const [traces,setTraces] = useState();
     console.log("aaaaaaa")
-    //console.log(data)
-    console.log(data.map(item => item["date"]));
-    console.log(title)
-    console.log(data.map(item => item[title]));
+    console.log(data.length);
+    let dates =[];
+    let m =[];
+    useEffect(()=>{
+        let dates=[];
+        let m =[];
+        for(let i =0;i<data.length;i++){
+            dates.push(data[i]['date'])
+            m.push(data[i][title])
+        }
+        setTraces([{
+            x:dates,
+            y:m,
+            type: "bar", 
+            marker: {
+                color: 'rgb(43, 158, 145)' 
+              }
+          }])
+    },[])
 
-
-    const traces = [{
-        x:data.map(item => item.date),
-        y:data.map(item => item[title]),
-        type: "bar", 
-        marker: {
-            color: 'rgb(43, 158, 145)' 
-          }
-      }];
       
     return (
-        
-            <Plot
-                data = {traces}
+        <>
+            {traces
+            ?<Plot
+            data = {traces}
                 layout={{
                         width: 400, 
                         height: 250, 
@@ -38,6 +45,9 @@ function Graph(props)
                     }}
                     config={{ displayModeBar: false }}
             />
+            :<></>
+            }
+                </>
         );
 
 }

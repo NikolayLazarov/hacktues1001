@@ -59,6 +59,7 @@ async  function getHashes(){
     let valString = codesToString(valArray);
     //console.log(valString);
     data.push(JSON.parse(valString));
+    console.log(data)
   }
 });
 setCurrentContractValue(data);
@@ -76,7 +77,7 @@ console.log(currentContractValue);
       <div>j1+ {currentContractValue}</div>
       {currentContractValue
       ?<>
-        <Graph title="temperature" data={currentContractValue}/>
+        <Graph className="graph" title="temperature" data={currentContractValue}/>
         <Graph className="graph" title="oxygen" data={currentContractValue}/>
         <Graph className="graph" title="pulse" data={currentContractValue}/>
       </>
