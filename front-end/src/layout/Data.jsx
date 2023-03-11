@@ -54,12 +54,19 @@ useEffect(()=>{
   },[]);
 
 
+
 async  function getHashes(){
-  let hash = hexToArray("0x"+props.hash);
-  let val = await contract.measurements("0x12345678901234567890");
-  console.log(hexToArray(val.data))
-  setCurrentContractValue(val);
-}
+  const data = [];
+  props.hash.map(async (hash)=>{
+  let newHash = hexToArray("0x"+hash);
+  if(await contract.measurementExist(newHash) ) {
+    let val = await contract.measurements(newHash);
+    data.push(val);
+  }
+});
+setCurrentContractValue(data);
+
+  }
 
   return (
     <div className="Data">
@@ -74,7 +81,7 @@ async  function getHashes(){
 
       <button onClick={getHashes}>Batton</button>
       <div>{props.hash}</div>
-      {/*currentContractValue*/}
+      currentContractValue
     </div>
   )
 }

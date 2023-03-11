@@ -5,7 +5,7 @@ function Graph(props)
 {
     const { title, data } = props;
 
-
+    
     const traces = [{
         x: data.map(item => item.date),
         y: data.map(item => item[title]),

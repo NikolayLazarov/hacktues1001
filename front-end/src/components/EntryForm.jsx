@@ -16,45 +16,56 @@ function EntryForm(props){
     const password = useRef();
     const startingDate = useRef();
     const endingDate = useRef();
+    const [hashes,setHashes] = useState([]);
 
     function entryFormHandler(event){
         event.preventDefault();
-      
-        const startingDateFormated = dateFormater(startingDate.current.value);
-        const endingDateFormated = dateFormater(endingDate.current.value);
-       
+    
+        const formatedDates = dateFormater(startingDate.current.value,endingDate.current.value);
         
-        console.log(startingDateFormated);
-        console.log(endingDateFormated);
+        const finalStringsArray = finalStringMaker(formatedDates);
         
-        const finalStartingString = finalStringMaker(startingDateFormated);
-        const finalEndingString = finalStringMaker(endingDateFormated);
-        
-        const hashStringStart = hashMaker(finalStartingString);
+        const hashStringStart = hashMaker(finalStringsArray);
 
-        props.setHash(hashStringStart);
-        console.log(hashStringStart);
-        navigate("/Data")
-        return hashStringStart;
+        props.setHashes(hashStringStart);
+
+        navigate("/Data");
+        // return hashStringStart;
     }
 
-    function dateFormater(date){
-        const dateObject = new Date(date);
-        const day =dateObject.getDate();
-        const month =dateObject.getMonth ()+1;
-        const year = dateObject.getFullYear();   
-        return day + "\\" + month + "\\" + year; 
+    function dateFormater(dateStart, dateFinal){
+        const dateObjectStart = new Date(dateStart);
+        const dateObjectFinal = new Date(dateFinal);
+        var daysOfYear = [];
+        
+        for (dateObjectStart; dateObjectStart <= dateObjectFinal; dateObjectStart.setDate(dateObjectStart.getDate() + 1)) {
+                const day =dateObjectStart.getDate();
+                const month =dateObjectStart.getMonth ()+1;
+                const year = dateObjectStart.getFullYear(); 
+            daysOfYear.push(day + "\\" + month + "\\" + year);   
+        }
+        
+        return daysOfYear; 
     }
 
-    function finalStringMaker(formatedDate){
-        const finalString = firstName.current.value + lastName.current.value + personalId.current.value + password.current.value + formatedDate;
-        return finalString;
+    function finalStringMaker(formatedDateArray){
+        const finalStrings = []; 
+        formatedDateArray.map((formatedData)=>{
+            const finalString = firstName.current.value + lastName.current.value + personalId.current.value + password.current.value + formatedData;
+                finalStrings.push(finalString);
+        });
+        return finalStrings;
+        
     }
 
-    function hashMaker(newString){
-        const hash  = sha256(newString).toString();
+    function hashMaker(startingStrings){
+        const hashes = [];
+        startingStrings.map((newString)=>{
+            hashes.push(sha256(newString).toString());
+        });
+        console.log(hashes);
 
-        return hash;
+        return hashes;
     }
 
     return <div >
