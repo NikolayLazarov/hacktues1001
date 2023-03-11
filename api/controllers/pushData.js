@@ -30,11 +30,11 @@ module.exports = async function (req,res){
     const pulse = req.body.pulse;
     const data = JSON.stringify({temp,o2,pulse,hash});
     console.log(data)
-    // try{
-    //     await medicalStorage.addMeasurement(hash,data);
-    // }catch(e){
-    //     console.log(e)
-    // }
+    try{
+        await medicalStorage.addMeasurement(hash,data);
+    }catch(e){
+        console.log(e)
+    }
     console.log(req.body)
     console.log("uploaded")
 
