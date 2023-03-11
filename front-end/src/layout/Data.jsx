@@ -75,11 +75,11 @@ console.log(currentContractValue);
       <div className="personal-id">1234567</div>
       <div>j1+ {currentContractValue}</div>
       {currentContractValue
-      ?<>
+      ?<div>
         <Graph title="temperature" data={currentContractValue}/>
         <Graph className="graph" title="oxygen" data={currentContractValue}/>
         <Graph className="graph" title="pulse" data={currentContractValue}/>
-      </>
+      </div>
       :<></>  
       }
       <Field signer={props.signer} hash={props.high}/>
