@@ -1,4 +1,3 @@
-
 // Sensor Libraries
 #include <DHT.h>
 #include <DHT_U.h>
@@ -13,11 +12,11 @@ DHT dht(DHTPIN, DHTTYPE);
 #define SENSOR_WORKTIME 10000
  // Sensor DATA
  float temp_data;
- int oxygen_data;
- int pulse_data;
+ float oxygen_data = 98;
+ float pulse_data = 121;
  
 // BUTTON CONSTANTS
- #define BUTTON_PIN 21  // GIOP21 pin connected to button
+ #define BUTTON_PIN 5 // GIOP21 pin connected to button
 
 // Variables will change:
 int lastState = LOW;  // the previous state from the input pin
@@ -36,8 +35,8 @@ int countButton = 0;
 //Wifi Libraries and constants
 
 #include "WiFi.h"
-#define WIFI_NETWORK "InnovationForumGuests"
-#define WIFI_PASSWORD ""
+#define WIFI_NETWORK "MON"
+#define WIFI_PASSWORD "kukumqfka"
 #define TIMEOUT 2000
 char jsonOutput_private[256];
 
@@ -51,7 +50,7 @@ PulseOximeter pox;
 uint32_t tsLastReport = 0;
 
 
- 
+/* 
 float max(float* data, unsigned int size)
 {
   float max = data[0];
@@ -63,13 +62,17 @@ float max(float* data, unsigned int size)
     Serial.println(max);
     return max;
 }
+*/
 
 float oxygen()
 {
   delay(5000);
+  pox.update();
+  Serial.println(pox.getSpO2());
+  /*
   int timer = millis();
   float data[60];
-  int count = 0;
+  int count = 0;'
   int i =0;
   while(count != 60)
   {
@@ -86,10 +89,14 @@ float oxygen()
   }
   
    return max(data,count);
+   */
 }
 
 float pulse()
 {
+  pox.update();
+  Serial.println(pox.getHeartRate());
+  /*
   delay(5000);
   pox.update();
   float pulse_data;
@@ -110,10 +117,13 @@ float pulse()
   }
   
   return max(data,count);
+  */
 }
 
 float temperature()
 {
+  Serial.println(dht.readTemperature());
+  /*
   delay(4000);
   float temperature;
   int timer = millis();
@@ -131,6 +141,7 @@ float temperature()
   }
   
   return max(data,count);
+  */
 }
 
 void sendData()
@@ -225,7 +236,7 @@ void sendData()
       Serial.println("Failure at HTTP Request.");
     }
   }
-  delay(10000000000000);
+  delay(100000000);
 }
 
 
@@ -239,7 +250,7 @@ void connectToWifi()
 {
   Serial.println("Connecting to Wifi...");
   WiFi.mode(WIFI_STA);
-  WiFi.begin(WIFI_NETWORK);
+  WiFi.begin(WIFI_NETWORK, WIFI_PASSWORD);
   unsigned long int attemptTime = millis();
   while (WiFi.status() != WL_CONNECTED && attemptTime - TIMEOUT > 0) {
     Serial.print('.');
@@ -277,45 +288,99 @@ void setup()
  
     // Register a callback for the beat detection
     pox.setOnBeatDetectedCallback(onBeatDetected);
- 
+  currentState = digitalRead(BUTTON_PIN);
+  
 
-  }  
+  
+
+}  
 
 void loop()
 {
-    currentState = digitalRead(BUTTON_PIN);
-    
-    if (lastState == HIGH && currentState == LOW && countButton == 0)
+  currentState = digitalRead(BUTTON_PIN);
+  if(lastState == HIGH && currentState == LOW)
     {
-      Serial.println("Button clicked!");
-      Serial.println("Temperature...");
-      temp_data = temperature();
-      countButton++;
-    }
-    else if (lastState == HIGH && currentState == LOW && countButton == 1)
-    {
-      Serial.println("Button clicked!");
-      Serial.println("Pulse...");  
-      pulse_data = pulse();  
-      countButton++;      
-    }
-    else if (lastState == HIGH && currentState == LOW && countButton == 2)
-    {
-      Serial.println("Button clicked!");
-      Serial.println("Oxygen...");
-      oxygen_data = oxygen();      
-      countButton++;
-    }
-    else if (lastState == LOW && currentState == HIGH)
-      Serial.println("The button is released");
-    if(countButton == 3)
-    {
-      sendData();
-      return;
-    }
+        delay(5000);
+        temp_data = dht.readTemperature();
+        Serial.print("Temperature: ");
+        Serial.println(temp_data);        
+        sendData();
+        for(;;);
+    } 
     lastState = currentState;
-}
+/*
+  pox.update();
+  if(millis() - tsLastReport > REPORTING_PERIOD_MS){
+    Serial.print("BPM: ");
+    Serial.println(pox.getHeartRate());
+    Serial.print("SpO2:");
+    Serial.println(pox.getSpO2());
 
+    tsLastReport = millis();
+  }
+    i
+
+  */
+  //pox.update();
+  //int pulse_data = 0;
+  //int oxygen_data = 0;
+  // Asynchronously dump heart rate and oxidation levels to the serial
+  // For both, a value of 0 means "invalid"
+    //Serial.print("Heart rate:");
+    //if(pox.getHeartRate > )
+    // pulse_data = pox.getHeartRate();
+    //oxygen_data = pox.getSpO2();
+    //Serial.println(pulse_data);
+    // 
+    // Serial.print("bpm / SpO2:");
+    // Serial.println(oxygen_data);
+    // Serial.println("%");
+
+ 
+
+ 
+    //lastState = currentState;
+    //while(lastState != HIGH && currentState != LOW)
+
+        //tsLastReport = millis();
+        //currentState = digitalRead(BUTTON_PIN)
+  // save the last state
+
+  // Serial.println(dht.readTemperature());
+    //currentState = digitalRead(BUTTON_PIN);
+    //int button = digitalRead(BUTTON_PIN);
+    //if (button == 1 && countButton == 0)
+    //{
+      //Serial.println("Button clicked!");
+      //Serial.println("Temperature...");
+      //temp_data = temperature();
+      //countButton++;
+    //}
+    //else if (button = 1 && countButton == 1)
+    //{
+      //Serial.println("Button clicked!");
+      //Serial.println("Pulse...");
+      //delay(5000);  
+      //pulse_data = pulse();  
+      //countButton++;      
+    //}
+    //else if (button == 1 && countButton == 2)
+    //{
+      //Serial.println("Button clicked!");
+     // Serial.println("Oxygen...");
+     // delay(5000);
+     // oxygen_data = oxygen();      
+    //countButton++;
+    //}
+    //else if (lastState == LOW && currentState == HIGH)
+      //Serial.println("The button is released");
+    //if(countButton == 3)
+    //{
+     // sendData();
+     // return;
+    //}
+    //lastState = currentState;
+}
 
 
 
