@@ -36,6 +36,19 @@ function Data(props) {
     "date": "2021-05-01"
     }
   ]
+
+  function codesToString(arr){
+    return String.fromCharCode(...arr);
+}
+  function stringToHex(str){
+    var arr1 = ['0','x'];
+    for (var n = 0, l = str.length; n < l; n ++){
+        var hex = Number(str.charCodeAt(n)).toString(16);
+        arr1.push(hex);
+    }
+    return arr1.join('');
+  }
+
   function hexToArray(hexx) {
     var hex = hexx.toString().slice(2);
     var arr = [];
@@ -58,10 +71,16 @@ useEffect(()=>{
 async  function getHashes(){
   const data = [];
   props.hash.map(async (hash)=>{
-  let newHash = hexToArray("0x"+hash);
-  if(await contract.measurementExist(newHash) ) {
-    let val = await contract.measurements(newHash);
-    data.push(val);
+  let newHash = stringToHex("0x"+hash);
+  console.log(newHash);
+  console.log(await contract.measurementExists(newHash));
+
+  if(await contract.measurementExists(newHash) ) {
+    let val =  await contract.measurements(newHash);
+    let valArray = hexToArray(val.data); 
+    let valString = codesToString(valArray);
+    console.log(valString);
+    data.push(valArray);
   }
 });
 setCurrentContractValue(data);
@@ -77,7 +96,7 @@ setCurrentContractValue(data);
       <Graph className="graph" title="temperature" data={data}/>
       <Graph className="graph" title="oxygen" data={data}/>
       <Graph className="graph" title="pulse" data={data}/>
-      <Field />
+      <Field signer={props.signer} hash={props.high}/>
 
       <button onClick={getHashes}>Batton</button>
       <div>{props.hash}</div>

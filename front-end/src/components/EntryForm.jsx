@@ -3,10 +3,6 @@ import React, { useState,useRef } from 'react';
 import sha256 from 'js-sha256';
 import { useNavigate } from "react-router-dom";
 
-
-
-
-
 function EntryForm(props){
     const navigate = useNavigate();
 
@@ -42,7 +38,7 @@ function EntryForm(props){
                 const day =dateObjectStart.getDate();
                 const month =dateObjectStart.getMonth ()+1;
                 const year = dateObjectStart.getFullYear(); 
-            daysOfYear.push(day + "\\" + month + "\\" + year);   
+            daysOfYear.push(day + "/" + month + "/" + year);   
         }
         
         return daysOfYear; 
@@ -61,6 +57,7 @@ function EntryForm(props){
     function hashMaker(startingStrings){
         const hashes = [];
         startingStrings.map((newString)=>{
+            console.log(newString);
             hashes.push(sha256(newString).toString());
         });
         console.log(hashes);
