@@ -58,8 +58,8 @@ function Data(props) {
         //console.log(arr);
     }
     return arr;
-}
-useEffect(()=>{
+  }
+  useEffect(()=>{
       console.log(props.provider);
       console.log(props.signer);
       let tempContract = new ethers.Contract(contractAddress,contractABI.abi, props.provider);
@@ -93,7 +93,7 @@ setCurrentContractValue(data);
       <div className="name">Josif Bezkosa</div>
       <div className="personal-id">1234567</div>
       
-      <Graph className="graph" title="temperature" data={data}/>
+      <Graph title="temperature" data={data}/>
       <Graph className="graph" title="oxygen" data={data}/>
       <Graph className="graph" title="pulse" data={data}/>
       <Field signer={props.signer} hash={props.high}/>

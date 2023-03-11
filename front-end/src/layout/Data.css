@@ -4,16 +4,14 @@
   justify-content: center;
   background-color: #F5F2F2;
   border-radius: 8px;
-  border: 1px solid darkgray;
-  
+  border: 1px solid darkgray;  
 }
 
 .pfp {
   border-radius: 50%;
   width: 200px;
   height: 200px;
-  margin-top: 50px;
-  margin-left: 100px;
+  margin: 50px auto 0 auto;
   background-image: url("../assets/pfp.png");
   background-size: cover;
   border: 3px solid black;
@@ -40,7 +38,9 @@
 }
 
 .graph {
-  margin: 10px;
-  flex-basis: calc(33.33% - 20px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
-
