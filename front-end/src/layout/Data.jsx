@@ -36,6 +36,7 @@ function Data(props) {
     "date": "2021-05-01"
     }
   ]
+
   function hexToArray(hexx) {
     var hex = hexx.toString().slice(2);
     var arr = [];
@@ -45,8 +46,8 @@ function Data(props) {
         //console.log(arr);
     }
     return arr;
-}
-useEffect(()=>{
+  }
+  useEffect(()=>{
       console.log(props.provider);
       console.log(props.signer);
       let tempContract = new ethers.Contract(contractAddress,contractABI.abi, props.provider);
@@ -55,16 +56,16 @@ useEffect(()=>{
 
 
 
-async  function getHashes(){
-  const data = [];
-  props.hash.map(async (hash)=>{
-  let newHash = hexToArray("0x"+hash);
-  if(await contract.measurementExist(newHash) ) {
-    let val = await contract.measurements(newHash);
-    data.push(val);
-  }
-});
-setCurrentContractValue(data);
+  async  function getHashes(){
+    const data = [];
+    props.hash.map(async (hash)=>{
+    let newHash = hexToArray("0x"+hash);
+    if(await contract.measurementExist(newHash) ) {
+      let val = await contract.measurements(newHash);
+      data.push(val); 
+    }
+  });
+  setCurrentContractValue(data);
 
   }
 
@@ -74,7 +75,7 @@ setCurrentContractValue(data);
       <div className="name">Josif Bezkosa</div>
       <div className="personal-id">1234567</div>
       
-      <Graph className="graph" title="temperature" data={data}/>
+      <Graph title="temperature" data={data}/>
       <Graph className="graph" title="oxygen" data={data}/>
       <Graph className="graph" title="pulse" data={data}/>
       <Field />
