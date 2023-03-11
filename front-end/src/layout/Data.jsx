@@ -9,33 +9,11 @@ import ContractAddress from "../../../contractDetails/address.json";
 // import { provider, signer } from '../App'
 
 function Data(props) {
-  const [contract, setContract] = useState(null);
+  //const [contract, setContract] = useState(null);
   const [currentContractValue, setCurrentContractValue] = useState(null);
   const contractAddress = ContractAddress.medicalStorage;
-  
-  const data = [
-    {
-    "hash": "",
-    "temperature": 37,
-    "oxygen": 25,
-    "pulse": 90,
-    "date": "2021-03-01"
-    },
-    {
-    "hash": "",
-    "temperature": 38,
-    "oxygen": 30,
-    "pulse": 95,
-    "date": "2021-04-01"
-    },
-    {
-    "hash": "",
-    "temperature": 39,
-    "oxygen": 35,
-    "pulse": 100,
-    "date": "2021-05-01"
-    }
-  ]
+
+  const contract = new ethers.Contract(contractAddress,contractABI.abi, props.provider);
 
   function codesToString(arr){
     return String.fromCharCode(...arr);
@@ -62,8 +40,8 @@ function Data(props) {
   useEffect(()=>{
       console.log(props.provider);
       console.log(props.signer);
-      let tempContract = new ethers.Contract(contractAddress,contractABI.abi, props.provider);
-      setContract(tempContract);
+
+      getHashes();
   },[]);
 
 
@@ -79,8 +57,8 @@ async  function getHashes(){
     let val =  await contract.measurements(newHash);
     let valArray = hexToArray(val.data); 
     let valString = codesToString(valArray);
-    console.log(valString);
-    data.push(valString);
+    //console.log(valString);
+    data.push(JSON.parse(valString));
   }
 });
 setCurrentContractValue(data);
@@ -96,13 +74,17 @@ console.log(currentContractValue);
       <div className="name">Josif Bezkosa</div>
       <div className="personal-id">1234567</div>
       <div>j1+ {currentContractValue}</div>
-      
-      <Graph title="temperature" data={currentContractValue}/>
-      {/* <Graph className="graph" title="oxygen" data={data}/> */}
-      {/* <Graph className="graph" title="pulse" data={data}/> */}
+      {currentContractValue
+      ?<>
+        <Graph title="temperature" data={currentContractValue}/>
+        <Graph className="graph" title="oxygen" data={currentContractValue}/>
+        <Graph className="graph" title="pulse" data={currentContractValue}/>
+      </>
+      :<></>  
+      }
       <Field signer={props.signer} hash={props.high}/>
 
-      <button onClick={getHashes}>Batton</button>
+      {/* <button onClick={getHashes}>Batton</button> */}
       <div>{props.hash}</div>
       currentContractValue
     </div>

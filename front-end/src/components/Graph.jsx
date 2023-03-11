@@ -4,11 +4,17 @@ import Plot from 'react-plotly.js';
 function Graph(props)
 {
     const { title, data } = props;
-    console.log(data);
+    
+    console.log("aaaaaaa")
+    //console.log(data)
+    console.log(data.map(item => item["date"]));
+    console.log(title)
+    console.log(data.map(item => item[title]));
+
 
     const traces = [{
-        x: data.map(item => item.date),
-        y: data.map(item => item[title]),
+        x:data.map(item => item.date),
+        y:data.map(item => item[title]),
         type: "bar", 
         marker: {
             color: 'rgb(43, 158, 145)' 
