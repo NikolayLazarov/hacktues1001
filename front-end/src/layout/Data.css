@@ -12,8 +12,9 @@
   border-radius: 50%;
   width: 200px;
   height: 200px;
-  margin-top: 50px;
-  margin-left: 100px;
+  position: center; 
+  /* margin-top: 50px;
+  margin-left: 100px; */
   background-image: url("../assets/pfp.png");
   background-size: cover;
   border: 3px solid black;
