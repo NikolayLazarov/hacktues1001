@@ -207,6 +207,7 @@ void setup()
 
 void loop()
 {
+
   currentState = digitalRead(BUTTON_PIN);
   if(lastState == HIGH && currentState == LOW)
     {
@@ -291,6 +292,7 @@ void loop()
     //}
     //lastState = currentState;
 }
+
 
 
 
