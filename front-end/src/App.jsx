@@ -31,7 +31,7 @@ function App() {
     },
     {
       path: "/",
-      element: <EntryForm signer={signer} setHash={setHash} />,
+      element: <EntryForm signer={signer} setHashes={setHash} />,
     },
   ]);
 

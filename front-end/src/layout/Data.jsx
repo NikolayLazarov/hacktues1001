@@ -36,6 +36,19 @@ function Data(props) {
     "date": "2021-05-01"
     }
   ]
+
+  function codesToString(arr){
+    return String.fromCharCode(...arr);
+}
+  function stringToHex(str){
+    var arr1 = ['0','x'];
+    for (var n = 0, l = str.length; n < l; n ++){
+        var hex = Number(str.charCodeAt(n)).toString(16);
+        arr1.push(hex);
+    }
+    return arr1.join('');
+  }
+
   function hexToArray(hexx) {
     var hex = hexx.toString().slice(2);
     var arr = [];
@@ -45,8 +58,8 @@ function Data(props) {
         //console.log(arr);
     }
     return arr;
-}
-useEffect(()=>{
+  }
+  useEffect(()=>{
       console.log(props.provider);
       console.log(props.signer);
       let tempContract = new ethers.Contract(contractAddress,contractABI.abi, props.provider);
@@ -54,12 +67,25 @@ useEffect(()=>{
   },[]);
 
 
+
 async  function getHashes(){
-  let hash = hexToArray("0x"+props.hash);
-  let val = await contract.measurements("0x12345678901234567890");
-  console.log(hexToArray(val.data))
-  setCurrentContractValue(val);
-}
+  const data = [];
+  props.hash.map(async (hash)=>{
+  let newHash = stringToHex("0x"+hash);
+  console.log(newHash);
+  console.log(await contract.measurementExists(newHash));
+
+  if(await contract.measurementExists(newHash) ) {
+    let val =  await contract.measurements(newHash);
+    let valArray = hexToArray(val.data); 
+    let valString = codesToString(valArray);
+    console.log(valString);
+    data.push(valArray);
+  }
+});
+setCurrentContractValue(data);
+
+  }
 
   return (
     <div className="Data">
@@ -67,14 +93,14 @@ async  function getHashes(){
       <div className="name">Josif Bezkosa</div>
       <div className="personal-id">1234567</div>
       
-      <Graph className="graph" title="temperature" data={data}/>
+      <Graph title="temperature" data={data}/>
       <Graph className="graph" title="oxygen" data={data}/>
       <Graph className="graph" title="pulse" data={data}/>
-      <Field />
+      <Field signer={props.signer} hash={props.high}/>
 
       <button onClick={getHashes}>Batton</button>
       <div>{props.hash}</div>
-      {/*currentContractValue*/}
+      currentContractValue
     </div>
   )
 }

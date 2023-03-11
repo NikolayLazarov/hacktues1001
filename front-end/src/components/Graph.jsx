@@ -10,9 +10,13 @@ function Graph(props)
         x: data.map(item => item.date),
         y: data.map(item => item[title]),
         type: "bar", 
+        marker: {
+            color: 'rgb(43, 158, 145)' 
+          }
       }];
-
+      
     return (
+        
             <Plot
                 data = {traces}
                 layout={{
@@ -29,6 +33,7 @@ function Graph(props)
                     config={{ displayModeBar: false }}
             />
         );
+
 }
 
 export default Graph;
