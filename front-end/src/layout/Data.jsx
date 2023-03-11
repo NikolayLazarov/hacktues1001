@@ -72,8 +72,8 @@ console.log(currentContractValue);
   return (
     <div className="Data">
       <div className="pfp"> </div>
-      <div className="name">Josif Bezkosa</div>
-      <div className="personal-id">1234567</div>
+      <div className="name">{props.firstName} {props.lastName}</div>
+      <div className="personal-id">{props.personalId}</div>
       <div>j1+ {currentContractValue}</div>
       {currentContractValue
       ?<div>

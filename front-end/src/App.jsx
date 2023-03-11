@@ -17,6 +17,10 @@ function App() {
     useState("Connect Wallet");
 
     const [hash, setHash] = useState();
+    const [firstName,setFirstName] = useState();
+    const [lastName, setLastName] = useState();
+    const [personalId, setPersonlId] = useState();
+    const [password, setPassword] = useState();
 
   const [currentContractVallue, setCurrentContractValue] = useState(null);
 
@@ -29,11 +33,11 @@ function App() {
   const router = createBrowserRouter([
     {
       path: "/Data",
-      element: <Data hash={hash} provider={provider} signer={signer}/>,
+      element: <Data hash={hash} provider={provider} signer={signer} firstName={firstName} lastName={lastName} personalId={personalId} password={password}/>,
     },
     {
       path: "/",
-      element: <EntryForm signer={signer} setHashes={setHash} />,
+      element: <EntryForm signer={signer} setHashes={setHash} setFirstName={setFirstName} setLastName={setLastName} setPersonlId={setPersonlId} setPassword={setPassword}/>,
     },
     {
       path: "/upload",
