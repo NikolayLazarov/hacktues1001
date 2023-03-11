@@ -80,10 +80,13 @@ async  function getHashes(){
     let valArray = hexToArray(val.data); 
     let valString = codesToString(valArray);
     console.log(valString);
-    data.push(valArray);
+    data.push(valString);
   }
 });
 setCurrentContractValue(data);
+console.log("here");
+  
+console.log(currentContractValue);
 
   }
 
@@ -92,10 +95,11 @@ setCurrentContractValue(data);
       <div className="pfp"> </div>
       <div className="name">Josif Bezkosa</div>
       <div className="personal-id">1234567</div>
+      <div>j1+ {currentContractValue}</div>
       
-      <Graph title="temperature" data={data}/>
-      <Graph className="graph" title="oxygen" data={data}/>
-      <Graph className="graph" title="pulse" data={data}/>
+      <Graph title="temperature" data={currentContractValue}/>
+      {/* <Graph className="graph" title="oxygen" data={data}/> */}
+      {/* <Graph className="graph" title="pulse" data={data}/> */}
       <Field signer={props.signer} hash={props.high}/>
 
       <button onClick={getHashes}>Batton</button>

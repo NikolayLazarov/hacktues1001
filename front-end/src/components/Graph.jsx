@@ -4,7 +4,7 @@ import Plot from 'react-plotly.js';
 function Graph(props)
 {
     const { title, data } = props;
-
+    console.log(data);
 
     const traces = [{
         x: data.map(item => item.date),
