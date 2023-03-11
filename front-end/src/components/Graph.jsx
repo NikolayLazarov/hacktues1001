@@ -2,25 +2,13 @@ import React, { useState,useEffect } from 'react';
 import Plot from 'react-plotly.js';
 
 function Graph(props)
-{
-    const { title, data } = props;
-
-    console.log("aaaaaaa")
-    console.log(data.length);
- 
-    let traces=[]
-    data.map(item=>{
-        traces.push([{
-            x: item['date'],
-            y: item[title],
-            type: "bar", 
-            marker: {
-                color: 'rgb(43, 158, 145)' 
-                }
-            }])
-    })
-    console.log(traces);
-    console.log(data);
+{   
+    const {data,title} = props;
+    const traces = [{
+        x: data.map(item => item.date),
+        y: data.map(item => item[title]),
+        type: "bar", 
+      }];
 
       
     return (

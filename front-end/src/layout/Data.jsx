@@ -59,10 +59,10 @@ async  function getHashes(){
     let valString = codesToString(valArray);
     //console.log(valString);
     data.push(JSON.parse(valString));
-    console.log(data)
+    
   }
+  setCurrentContractValue(data);
 });
-setCurrentContractValue(data);
 console.log("here");
   
 console.log(currentContractValue);
